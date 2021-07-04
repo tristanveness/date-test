@@ -1,0 +1,41 @@
+4:40pm Saturday
+
+- Struggling a little to understand the purpose of the problem, any good old fashioned date library should perform the required task
+- Perhaps that's the point of the task, to create a simple date library to solve the problem rather than use a date library (though I'd consider a date library core rather than 3rd party)
+- Will code up a simple solution using a date library and validate correctness against the test cases as solution A
+- Then work on solving the problem by rolling my own date library, using my understanding of the gregorian calendar as solution B
+
+5:40pm
+- For Solution A, chose to keep it extremely simple, but ensuring input validation and output correctness
+  (Added a couple of extra test cases)
+
+7:40pm
+- To meet requirements of calculating days spanning 1100 years, first, my understanding of Gregorian calendar
+- 365 days per year except leap years (+ 29 Feb)
+- Leap year every 4 years
+- Specific days per month (28(+1), 30, 31)
+- Makes sense to split dates into component parts: days, months, years
+- Can calculate # of days between years by e.g. (y(a) - y(b)) * 365 (+ leap days)
+- Can calculate # of days between months using a fixed Months array and summing the between months (+ leap day)
+- Can calculate # of remaining days using Months array (+ maybe leap day)
+- Let's use an example 22/03/2000 - 10/05/2004
+- Should derive (2004 - 2000) * 365 (+?)
+- Won't quite work, we don't know if boundary years have leap days occurring...
+- Other calculation(s) need to come first
+- Could sum the boundary year components separately
+- In this case, bring 22/03/2000 to 01/01/2000 and 10/05/2004 to 01/01/2004 leaving us with the
+  elapsed days of the boundary years and a simple determinate way to calculate years + inbetween leap days
+- This should work and be relatively fast to calculate
+- Let's get coding
+- All good except, discovered my understanding of gregorian calendar is wrong, had to look this definition up:
+   "Every year that is exactly divisible by four is a leap year, except for years that are exactly divisible by 100, but these centurial years are leap years if they are exactly divisible by 400. For example, the years 1700, 1800, and 1900 are not leap years, but the years 1600 and 2000 are."
+- Added a few extra test cases to accommodate for these rules
+- After a bit of head scratching around how to calculate boundaries of leap years, e.g. 1999 - 2401 vs 2001 - 2403
+  determined we can predetermine leap years with same sort of method as with months earlier, for example, to calculate
+  number of leap years between 1999 - 2401, we can calculate each *in relation to* a specific boundary such as year 0 (aka. Jesus)
+  e.g. (floor(2401 / 4) - (floor(2401 / 100) + floor(2401 / 400))) - (floor(1999 / 4) - (floor(1999 / 100) + floor(1999 / 400))
+- Test cases pass after debugging session
+- Algorithms mustn't be too terrible as the tests execute slightly faster than solution A
+
+Sunday
+- Added some additional input validation and date format string parsing

@@ -1,0 +1,34 @@
+#!/usr/bin/php
+<?php
+
+if (!isset($argv[2])) {
+	usage();
+}
+
+if (!$date1 = DateTime::createFromFormat('d/m/Y', $argv[1])) {
+    echo "Invalid date: " . escapeshellarg($argv[1]);
+    echo ", must be in format dd/mm/yyyy, e.g. 20/10/1981\n";
+    usage();
+}
+// Not very DRY, forgive me ;)
+if (!$date2 = DateTime::createFromFormat('d/m/Y', $argv[2])) {
+    echo "Invalid date: " . escapeshellarg($argv[2]);
+    echo ", must be in format dd/mm/yyyy, e.g. 20/10/1981\n";
+    usage();
+}
+
+echo daysBetweenNonInclusive($date1, $date2) . "\n";
+
+/**
+ * Days between 2 dates, provided in any order, non-inclusive
+ */
+function daysBetweenNonInclusive(DateTime $date1, DateTime $date2): int {
+    $days = $date1->diff($date2)->days - 1;
+    if ($days < 0) return 0;
+    return $days;
+}
+
+function usage() {
+    echo "Usage: {$_SERVER['SCRIPT_FILENAME']} <date1> <date2>\n";
+    exit(1);
+}

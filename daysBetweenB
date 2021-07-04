@@ -1,0 +1,37 @@
+#!/usr/bin/php
+<?php
+// normally would autoload these...
+require_once('src/ScienceProject/Date/Date.php');
+require_once('src/ScienceProject/Date/InvalidDateException.php');
+
+use ScienceProject\Date\Date;
+use ScienceProject\Date\InvalidDateException;
+
+if (!isset($argv[2])) {
+	usage();
+}
+
+try {
+    $date1 = Date::createFromFormat($argv[1], 'd/m/Y');
+    $date2 = Date::createFromFormat($argv[2], 'd/m/Y');
+}
+catch (InvalidDateException $e) {
+    echo $e->getMessage() . "\n";
+    exit(1);
+}
+
+echo daysBetweenExclusive($date1, $date2) . "\n";
+
+/**
+ * Days between 2 dates, provided in any order, non-inclusive
+ */
+function daysBetweenExclusive(Date $date1, Date $date2): int {
+    $days = abs($date1->diffDays($date2)) - 1;
+    if ($days < 0) return 0;
+    return $days;
+}
+
+function usage() {
+    echo "Usage: {$_SERVER['SCRIPT_FILENAME']} <date1> <date2>\n";
+    exit(1);
+}
