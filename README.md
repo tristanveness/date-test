@@ -1,13 +1,22 @@
+# Dependencies
+- docker
+
+OR
+- php 7.4+
+- bash
+
 # Usage
 
+If you have docker, but don't have php/bash installed locally
 ```
-
-# (If you have docker, but don't have php/bash installed locally)
 docker run -ti --rm -v $(pwd):/date-test -w /date-test php:7.4-cli bash
+```
+Then
+```
 cat thoughts.txt
 ./test.sh
 # Solution A
-./daysBetween <date1> <date2>
+./daysBetweenA <date1> <date2>
 # Solution B
-./daysBetween2 <date1> <date2>
+./daysBetweenB <date1> <date2>
 ```

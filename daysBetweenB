@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 // normally would autoload these...
 require_once('src/ScienceProject/Date/Date.php');
