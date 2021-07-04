@@ -7,10 +7,17 @@ OR
 
 # Usage
 
+Clone the repo
+```
+git clone https://github.com/tristanveness/date-test date-test-tv
+cd date-test-tv
+```
+
 If you have docker, but don't have php/bash installed locally
 ```
 docker run -ti --rm -v $(pwd):/date-test -w /date-test php:7.4-cli bash
 ```
+
 Then
 ```
 cat thoughts.txt
